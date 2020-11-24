@@ -1,6 +1,6 @@
 package com.ecommerce.dao;
 
-import com.ecommerce.bootstrap.DataGenerator;
+import com.ecommerce.datagenerator.DataGenerator;
 import com.ecommerce.model.Product;
 import com.ecommerce.service.CrudService;
 import org.springframework.stereotype.Service;

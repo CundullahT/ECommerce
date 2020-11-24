@@ -1,4 +1,4 @@
-package com.ecommerce.bootstrap;
+package com.ecommerce.datagenerator;
 
 import com.ecommerce.dao.CategoriesDAO;
 import com.ecommerce.model.Category;

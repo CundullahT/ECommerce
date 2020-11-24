@@ -1,11 +1,10 @@
 package com.ecommerce.dao;
 
-import com.ecommerce.bootstrap.DataGenerator;
+import com.ecommerce.datagenerator.DataGenerator;
 import com.ecommerce.model.Category;
 import com.ecommerce.service.CrudService;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
