@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("product")
 public class ProductController {
 
-    @GetMapping("/{id}")
+    @GetMapping("/list/details/{id}")
     public String getProduct(@PathVariable("id") Integer id){
 
         return "/product/productDetails";
@@ -23,7 +23,7 @@ public class ProductController {
 
     }
 
-    @GetMapping("/edit/{id}")
+    @GetMapping("/list/details/edit/{id}")
     public String editProduct(@PathVariable("id") Integer id){
 
         return "/product/productEdit";
