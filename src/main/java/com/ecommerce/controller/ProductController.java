@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("product")
 public class ProductController {
 
-    @GetMapping("/list/details/{id}")
+    @GetMapping("/details/{id}")
     public String getProduct(@PathVariable("id") Integer id, ProductDAO productDAO, Model model){
 
         model.addAttribute("product", productDAO.readByID(id));
@@ -30,8 +30,10 @@ public class ProductController {
 
     }
 
-    @GetMapping("/list/details/edit/{id}")
-    public String editProduct(@PathVariable("id") Integer id){
+    @GetMapping("/edit/{id}")
+    public String editProduct(@PathVariable("id") Integer id, ProductDAO productDAO, Model model){
+
+        model.addAttribute("product", productDAO.readByID(id));
 
         return "/product/productEdit";
 
