@@ -15,7 +15,7 @@ public class ProductController {
     @GetMapping("/list/details/{id}")
     public String getProduct(@PathVariable("id") Integer id, ProductDAO productDAO, Model model){
 
-        model.addAttribute("product",productDAO.readByID(id));
+        model.addAttribute("product", productDAO.readByID(id));
 
         return "/product/productDetails";
 
