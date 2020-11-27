@@ -35,7 +35,7 @@ public class ProductController {
 
         model.addAttribute("product", productDAO.readByID(id));
 
-        return "/product/productEdit";
+        return "/product/productForm";
 
     }
 
