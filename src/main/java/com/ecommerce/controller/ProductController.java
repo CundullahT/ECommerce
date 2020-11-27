@@ -1,19 +1,26 @@
 package com.ecommerce.controller;
 
+import com.ecommerce.dao.CategoriesDAO;
 import com.ecommerce.dao.ProductDAO;
 import com.ecommerce.datagenerator.DataGenerator;
+import com.ecommerce.model.Product;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("product")
 public class ProductController {
 
+    @Autowired
+    ProductDAO productDAO;
+
+    @Autowired
+    CategoriesDAO categoriesDAO;
+
     @GetMapping("/details/{id}")
-    public String getProduct(@PathVariable("id") Integer id, ProductDAO productDAO, Model model){
+    public String getProduct(@PathVariable("id") Integer id, Model model){
 
         model.addAttribute("product", productDAO.readByID(id));
 
@@ -31,11 +38,18 @@ public class ProductController {
     }
 
     @GetMapping("/edit/{id}")
-    public String editProduct(@PathVariable("id") Integer id, ProductDAO productDAO, Model model){
-
+    public String editProduct(@PathVariable("id") Integer id, Model model){
+        model.addAttribute("categories", categoriesDAO.readAll());
         model.addAttribute("product", productDAO.readByID(id));
 
         return "/product/productForm";
+
+    }
+
+    @PostMapping("/edit/{id}")
+    public String updateProduct(@PathVariable("id") Integer id, @ModelAttribute("product") Product product, Model model) throws Exception {
+        productDAO.update(product,id);
+        return "redirect:/product/productList";
 
     }
 
