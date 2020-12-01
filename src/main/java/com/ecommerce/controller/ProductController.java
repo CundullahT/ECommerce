@@ -60,4 +60,10 @@ public class ProductController {
 
     }
 
+    @PostMapping("/add")
+    public String insertTask(@ModelAttribute("product") Product product){
+        productDAO.create(product);
+        return "redirect:/product/list";
+    }
+
 }
