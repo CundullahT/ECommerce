@@ -2,7 +2,6 @@ package com.ecommerce.controller;
 
 import com.ecommerce.dao.CategoriesDAO;
 import com.ecommerce.dao.ProductDAO;
-import com.ecommerce.datagenerator.DataGenerator;
 import com.ecommerce.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,7 +30,7 @@ public class ProductController {
     @GetMapping("/list")
     public String getProductList(Model model){
 
-        model.addAttribute("products", DataGenerator.getProductList());
+        model.addAttribute("products", productDAO.readAll());
 
         return "/product/productList";
 
@@ -39,6 +38,7 @@ public class ProductController {
 
     @GetMapping("/edit/{id}")
     public String editProduct(@PathVariable("id") Integer id, Model model){
+
         model.addAttribute("categories", categoriesDAO.readAll());
         model.addAttribute("product", productDAO.readByID(id));
 
