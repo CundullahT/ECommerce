@@ -45,15 +45,10 @@ public class CategoriesDAO implements CrudService<Category> {
             throw new Exception("No Such Category");
         }
 
-        DataGenerator.getCategoryList().forEach(category1 -> {
-            if(category1.getId().equals(id)){
-                category1.setName(category.getName());
-            }
-        });
-
-        DataGenerator.getCategoryList().forEach(category1 -> {
-            if(category1.getId().equals(id)){
-                category1.setDescription(category.getDescription());
+        DataGenerator.getCategoryList().forEach(theCategory -> {
+            if(theCategory.getId().equals(id)){
+                theCategory.setName(category.getName());
+                theCategory.setDescription(category.getDescription());
             }
         });
 

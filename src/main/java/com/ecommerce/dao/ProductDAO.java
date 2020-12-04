@@ -42,33 +42,13 @@ public class ProductDAO implements CrudService<Product> {
             throw new Exception("No Such Product");
         }
 
-        DataGenerator.getProductList().forEach(product1 -> {
-            if (product1.getId().equals(id)) {
-                product1.setName(product.getName());
-            }
-        });
-
-        DataGenerator.getProductList().forEach(product1 -> {
-            if (product1.getId().equals(id)) {
-                product1.setPrice(product.getPrice());
-            }
-        });
-
-        DataGenerator.getProductList().forEach(product1 -> {
-            if (product1.getId().equals(id)) {
-                product1.setQuantity(product.getQuantity());
-            }
-        });
-
-        DataGenerator.getProductList().forEach(product1 -> {
-            if (product1.getId().equals(id)) {
-                product1.setDescription(product.getDescription());
-            }
-        });
-
-        DataGenerator.getProductList().forEach(product1 -> {
-            if (product1.getId().equals(id)) {
-                product1.setCategory(product.getCategory());
+        DataGenerator.getProductList().forEach(theProduct -> {
+            if (theProduct.getId().equals(id)) {
+                theProduct.setName(product.getName());
+                theProduct.setPrice(product.getPrice());
+                theProduct.setQuantity(product.getQuantity());
+                theProduct.setDescription(product.getDescription());
+                theProduct.setCategory(product.getCategory());
             }
         });
 
