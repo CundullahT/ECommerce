@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("product")
 public class ProductController {
 
-    private ProductDAO productDAO;
-    private CategoriesDAO categoriesDAO;
+    private final ProductDAO productDAO;
+    private final CategoriesDAO categoriesDAO;
 
     @Autowired
     public ProductController(ProductDAO productDAO, CategoriesDAO categoriesDAO){

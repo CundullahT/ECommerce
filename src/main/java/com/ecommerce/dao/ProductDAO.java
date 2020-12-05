@@ -16,7 +16,9 @@ public class ProductDAO extends MapService<Product, Integer> {
             id = (int) UUID.randomUUID().getLeastSignificantBits();
         }
 
-        super.create(id, product);
+        product.setId(id);
+
+        super.create(product.getId(), product);
 
     }
 
