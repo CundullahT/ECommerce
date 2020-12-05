@@ -38,8 +38,20 @@ public class CategoryController {
 
     @GetMapping("/details/{id}")
     public String getCategory(@PathVariable("id") Integer id, Model model){
-        model.addAttribute(categoriesDAO.readByID(id));
+        model.addAttribute("category", categoriesDAO.readByID(id));
         return "/category/categoryDetails";
+    }
+
+    @GetMapping("/edit/{id}")
+    public String editCategory(@PathVariable("id") Integer id, Model model){
+        model.addAttribute("category", categoriesDAO.readByID(id));
+        return "/category/categoryForm";
+    }
+
+    @PostMapping("/edit/{id}")
+    public String updateCategory(@PathVariable("id") Integer id, @ModelAttribute("category") Category category) throws Exception {
+        categoriesDAO.update(id, category);
+        return "redirect:/category/list";
     }
 
 }

@@ -4,6 +4,42 @@
 </head>
 <body>
 <div th:replace="/fragments/header :: header"></div>
+
+<div class="container-fluid">
+    <div class="row text-right">
+        <div class=" col col-sm-10 col-lg-9 offset-sm-1 offset-lg-0">
+            <a th:href="@{/category/edit/{id}(id=${category.id})}" class="btn btn-space btn-primary">Edit</a>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6 col-md-6">
+            <div class="row">
+                <div class="col-3">
+                    <label class="font-weight-bold" for="id">Id:</label>
+                </div>
+                <div class="col">
+                    <span id="id" th:text="${category.id}"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-3">
+                    <label class="font-weight-bold" for="name">Name:</label>
+                </div>
+                <div class="col">
+                    <span id="name" th:text="${category.name}"></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-4">
+            <label class="font-weight-bold" for="description">Description:</label>
+            <p id="description" th:text="${category.description}"></p>
+        </div>
+    </div>
+</div>
+
 <div th:replace="/fragments/footer :: footer" class="bg-dark text-white"></div>
+
 </body>
 </html>
