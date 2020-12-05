@@ -1,60 +1,54 @@
 package com.ecommerce.dao;
 
-import com.ecommerce.datagenerator.DataGenerator;
 import com.ecommerce.model.Category;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
+import java.util.UUID;
 
 @Service
-public class CategoriesDAO {
+public class CategoriesDAO extends MapService<Category, Integer> {
 
-    private List<Category> categoryList = DataGenerator.getCategoryList();
+    public void create(Integer id, Category category) {
 
-    public void create(Category category) {
-
-        Optional<Category> lastCat = categoryList.stream().sorted(Comparator.comparing(Category::getId)).collect(Collectors.toList()).stream().reduce((a, b) -> b);
-
-        if (lastCat.isPresent()) {
-            category.setId(lastCat.get().getId() + 1);
-        } else {
-            category.setId(1);
+        if(id == null){
+            id = (int) UUID.randomUUID().getLeastSignificantBits();
         }
 
-        categoryList.add(category);
+        super.create(id, category);
 
     }
 
     public List<Category> readAll() {
-        return categoryList;
+
+        List<Category> categories = super.readAll();
+
+        categories.sort(Comparator.comparing(Category::getName));
+
+        return categories;
     }
 
     public Category readByID(Integer id) {
-        return categoryList.stream().filter(category -> category.getId().equals(id)).findFirst().orElse(null);
+        return super.readByID(id);
     }
 
-    public void update(Category category, Integer id) throws Exception {
+    public void update(Integer id, Category category) throws Exception {
 
         if (readByID(id) == null) {
             throw new Exception("No Such Category");
         }
 
-        Category foundedCategory = readByID(category.getId());
-
-        category.setName(foundedCategory.getName());
-        category.setDescription(foundedCategory.getDescription());
+        super.update(id, category);
 
     }
 
     public void delete(Category category) {
-        categoryList.remove(category);
+        super.delete(category);
     }
 
     public void deleteByID(Integer id) {
-        categoryList.removeIf(category -> category.getId().equals(id));
+        super.deleteByID(id);
     }
 
 }

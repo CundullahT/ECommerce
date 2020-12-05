@@ -1,7 +1,8 @@
 package com.ecommerce.model;
 
 import lombok.*;
-import org.springframework.stereotype.Component;
+
+import java.util.UUID;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -13,5 +14,11 @@ public class Category {
     private Integer id;
     private String name;
     private String description;
+
+    public Category(String name, String description){
+        this.name = name;
+        this.description = description;
+        this.id = (int) UUID.randomUUID().getLeastSignificantBits();
+    }
 
 }

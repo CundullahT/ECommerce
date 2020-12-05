@@ -50,21 +50,23 @@ public class ProductController {
 
     @PostMapping("/edit/{id}")
     public String updateProduct(@PathVariable("id") Integer id, @ModelAttribute("product") Product product, Model model) throws Exception {
-        productDAO.update(product,id);
+        productDAO.update(id, product);
         return "redirect:/product/list";
 
     }
 
     @GetMapping("/add")
-    public String createProduct(){
-
+    public String createProduct(Model model){
+        model.addAttribute("category", new Category());
+        model.addAttribute("categories", categoriesDAO.readAll());
+        model.addAttribute("product", new Product());
+        model.addAttribute("categories", categoriesDAO.readAll());
         return "/product/productAdd";
-
     }
 
     @PostMapping("/add")
     public String insertTask(@ModelAttribute("product") Product product){
-        productDAO.create(product);
+        productDAO.create(product.getId(), product);
         return "redirect:/product/list";
     }
 

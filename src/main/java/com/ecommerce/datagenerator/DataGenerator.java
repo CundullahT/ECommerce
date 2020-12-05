@@ -1,44 +1,52 @@
 package com.ecommerce.datagenerator;
 
+import com.ecommerce.dao.CategoriesDAO;
+import com.ecommerce.dao.ProductDAO;
 import com.ecommerce.model.Category;
 import com.ecommerce.model.Product;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 @Component
-public class DataGenerator {
+public class DataGenerator implements CommandLineRunner {
 
-    public static List<Product> productList = new ArrayList<>();
+    CategoriesDAO categories;
+    ProductDAO products;
 
-    public static List<Category> categories = new ArrayList<>();
-
-    static {
-
-        Category cat1 = new Category(1, "Cell Phones & Accessories", "Any Description About Cell Phones Accessories");
-        Category cat2 = new Category(2, "DVDs & Movies", "Any Description About DVDs & Movies");
-        Category cat3 = new Category(3, "Musical Instruments & Gear", "Any Description About Musical Instruments & Gear");
-        Category cat4 = new Category(4, "Sporting Goods", "Any Description About Sporting Goods");
-        Category cat5 = new Category(5, "Video Games & Consoles", "Any Description About Video Games & Consoles");
-
-        categories.addAll(Arrays.asList(cat1,cat2,cat3,cat4,cat5));
-
-        productList.add(new Product(1, "Samsung S9", new BigDecimal("899.99"), 150, "Any Description About Samsung S9", cat1));
-        productList.add(new Product(2, "The Lord Of The Rings The Return Of The King", new BigDecimal("19.99"), 200, "Any Description About The Lord Of The Rings The Return Of The King", cat2));
-        productList.add(new Product(3, "Yamaha Drum Set", new BigDecimal("699.99"), 15, "Any Description About Yamaha Drum Set", cat3));
-        productList.add(new Product(4, "BMW E-Bike", new BigDecimal("3499.99"), 5, "Any Description About BMW E-Bike", cat4));
-        productList.add(new Product(5, "Sony Playstation 5", new BigDecimal("499.99"), 50, "Any Description About Sony Playstation 5", cat5));
+    public DataGenerator(ProductDAO products, CategoriesDAO categories){
+        this.products = products;
+        this.categories = categories;
     }
 
-    public static List<Product> getProductList(){
-        return productList;
-    }
+    @Override
+    public void run(String... args) throws Exception {
 
-    public static List<Category> getCategoryList(){
-        return categories;
+        Category cat1 = new Category("Cell Phones & Accessories", "Any Description About Cell Phones Accessories");
+        Category cat2 = new Category("DVDs & Movies", "Any Description About DVDs & Movies");
+        Category cat3 = new Category("Musical Instruments & Gear", "Any Description About Musical Instruments & Gear");
+        Category cat4 = new Category("Sporting Goods", "Any Description About Sporting Goods");
+        Category cat5 = new Category("Video Games & Consoles", "Any Description About Video Games & Consoles");
+
+        categories.create(cat1.getId(), cat1);
+        categories.create(cat2.getId(), cat2);
+        categories.create(cat3.getId(), cat3);
+        categories.create(cat4.getId(), cat4);
+        categories.create(cat5.getId(), cat5);
+
+        Product product1 = new Product("Samsung S9", new BigDecimal("899.99"), 150, "Any Description About Samsung S9", cat1);
+        Product product2 = new Product("The Lord Of The Rings The Return Of The King", new BigDecimal("19.99"), 200, "Any Description About The Lord Of The Rings The Return Of The King", cat2);
+        Product product3 = new Product("Yamaha Drum Set", new BigDecimal("699.99"), 15, "Any Description About Yamaha Drum Set", cat3);
+        Product product4 = new Product("BMW E-Bike", new BigDecimal("3499.99"), 5, "Any Description About BMW E-Bike", cat4);
+        Product product5 = new Product("Sony Playstation 5", new BigDecimal("499.99"), 50, "Any Description About Sony Playstation 5", cat5);
+
+        products.create(product1.getId(), product1);
+        products.create(product2.getId(), product2);
+        products.create(product3.getId(), product3);
+        products.create(product4.getId(), product4);
+        products.create(product5.getId(), product5);
+
     }
 
 }

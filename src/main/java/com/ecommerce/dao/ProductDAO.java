@@ -1,63 +1,54 @@
 package com.ecommerce.dao;
 
-import com.ecommerce.datagenerator.DataGenerator;
 import com.ecommerce.model.Product;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
+import java.util.UUID;
 
 @Service
-public class ProductDAO {
+public class ProductDAO extends MapService<Product, Integer> {
 
-    private List<Product> productList = DataGenerator.getProductList();
+    public void create(Integer id, Product product) {
 
-    public void create(Product product) {
-        Optional<Product> lastProduct = productList.stream().sorted(Comparator.comparing(Product::getId)).collect(Collectors.toList()).stream().reduce((a, b) -> b);
-
-        if (lastProduct.isPresent()) {
-            product.setId(lastProduct.get().getId() + 1);
-        } else {
-            product.setId(1);
+        if(id == null){
+            id = (int) UUID.randomUUID().getLeastSignificantBits();
         }
 
-        productList.add(product);
+        super.create(id, product);
+
     }
 
     public List<Product> readAll() {
-        return productList;
+
+        List<Product> products = super.readAll();
+
+        products.sort(Comparator.comparing(Product::getName));
+
+        return products;
     }
 
     public Product readByID(Integer id) {
-        return productList.stream().filter(product -> product.getId().equals(id)).findFirst().orElse(null);
+        return super.readByID(id);
     }
 
-    public void update(Product product, Integer id) throws Exception {
+    public void update(Integer id, Product product) throws Exception {
+
         if (readByID(id) == null) {
-            throw new Exception("No Such Product");
+            throw new Exception("No Such Category");
         }
 
-        Product foundedProduct = readByID(product.getId());
-
-        product.setName(foundedProduct.getName());
-        product.setPrice(foundedProduct.getPrice());
-        product.setQuantity(foundedProduct.getQuantity());
-        product.setDescription(foundedProduct.getDescription());
-        product.setCategory(foundedProduct.getCategory());
-
-        productList.remove((int)foundedProduct.getId());
-        productList.add(product);
+        super.update(id, product);
 
     }
 
     public void delete(Product product) {
-        productList.remove(product);
+        super.delete(product);
     }
 
     public void deleteByID(Integer id) {
-        productList.removeIf(product -> product.getId().equals(id));
+        super.deleteByID(id);
     }
 
 }
