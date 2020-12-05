@@ -2,7 +2,7 @@ package com.ecommerce.dao;
 
 import java.util.*;
 
-public class MapService<T, ID> {
+public abstract class MapService<T, ID> {
 
     protected Map<ID, T> map = new HashMap<>();
 
