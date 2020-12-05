@@ -13,11 +13,15 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("product")
 public class ProductController {
 
-    @Autowired
-    ProductDAO productDAO;
+
+    private ProductDAO productDAO;
+    private CategoriesDAO categoriesDAO;
 
     @Autowired
-    CategoriesDAO categoriesDAO;
+    public ProductController(ProductDAO productDAO, CategoriesDAO categoriesDAO){
+        this.productDAO = productDAO;
+        this.categoriesDAO = categoriesDAO;
+    }
 
     @GetMapping("/details/{id}")
     public String getProduct(@PathVariable("id") Integer id, Model model){
@@ -49,7 +53,7 @@ public class ProductController {
     }
 
     @PostMapping("/edit/{id}")
-    public String updateProduct(@PathVariable("id") Integer id, @ModelAttribute("product") Product product, Model model) throws Exception {
+    public String updateProduct(@PathVariable("id") Integer id, @ModelAttribute("product") Product product) throws Exception {
         productDAO.update(id, product);
         return "redirect:/product/list";
 
@@ -57,10 +61,11 @@ public class ProductController {
 
     @GetMapping("/add")
     public String createProduct(Model model){
-        model.addAttribute("category", new Category());
-        model.addAttribute("categories", categoriesDAO.readAll());
+
         model.addAttribute("product", new Product());
         model.addAttribute("categories", categoriesDAO.readAll());
+        model.addAttribute("categories", categoriesDAO.readAll());
+
         return "/product/productAdd";
     }
 
