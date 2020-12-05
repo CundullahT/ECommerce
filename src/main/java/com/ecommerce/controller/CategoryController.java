@@ -31,7 +31,7 @@ public class CategoryController {
     }
 
     @PostMapping("/add")
-    public String createCategory(@ModelAttribute Category category){
+    public String insertCategory(@ModelAttribute Category category){
         categoriesDAO.create(category.getId(), category);
         return "redirect:/category/list";
     }
@@ -51,6 +51,12 @@ public class CategoryController {
     @PostMapping("/edit/{id}")
     public String updateCategory(@PathVariable("id") Integer id, @ModelAttribute("category") Category category) throws Exception {
         categoriesDAO.update(id, category);
+        return "redirect:/category/list";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteProduct(@PathVariable("id") Integer id){
+        categoriesDAO.delete(categoriesDAO.readByID(id));
         return "redirect:/category/list";
     }
 

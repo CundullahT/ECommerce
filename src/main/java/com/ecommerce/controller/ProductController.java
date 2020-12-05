@@ -69,8 +69,14 @@ public class ProductController {
     }
 
     @PostMapping("/add")
-    public String insertTask(@ModelAttribute("product") Product product){
+    public String insertProduct(@ModelAttribute("product") Product product){
         productDAO.create(product.getId(), product);
+        return "redirect:/product/list";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteProduct(@PathVariable("id") Integer id){
+        productDAO.delete(productDAO.readByID(id));
         return "redirect:/product/list";
     }
 

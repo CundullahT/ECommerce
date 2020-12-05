@@ -13,6 +13,7 @@
                 <input type="text" class="form-control" id="productName" placeholder="Enter product name" th:field="*{name}">
                 <label for="category">Category</label>
                 <select id="category" class="form-control" th:field="*{category}">
+                    <option th:value=" ''" th:text="Select"></option>
                     <option th:each="theCategory : ${categories}" th:value="${theCategory.id}" th:text="${theCategory.name}"></option>
                 </select>
                 <div class="row">

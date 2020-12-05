@@ -23,8 +23,8 @@
                     <th scope="row" th:text="${category.id}"></th>
                     <td th:text="${category.name}"></td>
                     <td>
-                        <a href="#">More</a>
-                        <a href="#">Delete</a>
+                        <a th:href="@{/category/details/{id}(id=${category.id})}">More</a>
+                        <a th:href="@{/category/delete/{id}(id=${category.id})}">Delete</a>
                     </td>
                 </tr>
                 </tbody>
