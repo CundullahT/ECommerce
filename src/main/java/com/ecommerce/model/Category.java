@@ -16,9 +16,9 @@ public class Category {
     private String description;
 
     public Category(String name, String description){
+        this.id = (int) UUID.randomUUID().getLeastSignificantBits();
         this.name = name;
         this.description = description;
-        this.id = (int) UUID.randomUUID().getLeastSignificantBits();
     }
 
 }

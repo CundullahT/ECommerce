@@ -1,11 +1,11 @@
 package com.ecommerce.controller;
 
 import com.ecommerce.dao.CategoriesDAO;
+import com.ecommerce.model.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("category")
@@ -18,7 +18,6 @@ public class CategoryController {
         this.categoriesDAO = categoriesDAO;
     }
 
-
     @GetMapping("/list")
     public String list(Model model) {
         model.addAttribute("categories", categoriesDAO.readAll());
@@ -26,9 +25,21 @@ public class CategoryController {
     }
 
     @GetMapping("/add")
-    public String createCategory(){
-
+    public String createCategory(Model model){
+        model.addAttribute("category", new Category());
         return "/category/categoryAdd";
+    }
+
+    @PostMapping("/add")
+    public String createCategory(@ModelAttribute Category category){
+        categoriesDAO.create(category.getId(), category);
+        return "redirect:/category/list";
+    }
+
+    @GetMapping("/details/{id}")
+    public String getCategory(@PathVariable("id") Integer id, Model model){
+        model.addAttribute(categoriesDAO.readByID(id));
+        return "/category/categoryDetails";
     }
 
 }
