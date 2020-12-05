@@ -16,6 +16,8 @@ public class CategoriesDAO extends MapService<Category, Integer> {
             id = (int) UUID.randomUUID().getLeastSignificantBits();
         }
 
+        category.setId(id);
+
         super.create(id, category);
 
     }
