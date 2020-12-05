@@ -2,6 +2,7 @@ package com.ecommerce.controller;
 
 import com.ecommerce.dao.CategoriesDAO;
 import com.ecommerce.dao.ProductDAO;
+import com.ecommerce.model.Category;
 import com.ecommerce.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -37,8 +38,9 @@ public class ProductController {
     }
 
     @GetMapping("/edit/{id}")
-    public String editProduct(@PathVariable("id") Integer id, Model model){
+    public String editProduct(@PathVariable("id") Integer id, Model model, Category category){
 
+        model.addAttribute("category", category);
         model.addAttribute("categories", categoriesDAO.readAll());
         model.addAttribute("product", productDAO.readByID(id));
 
@@ -49,7 +51,7 @@ public class ProductController {
     @PostMapping("/edit/{id}")
     public String updateProduct(@PathVariable("id") Integer id, @ModelAttribute("product") Product product, Model model) throws Exception {
         productDAO.update(product,id);
-        return "redirect:/product/productList";
+        return "redirect:/product/list";
 
     }
 

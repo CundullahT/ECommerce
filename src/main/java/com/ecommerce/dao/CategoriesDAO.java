@@ -12,9 +12,11 @@ import java.util.stream.Collectors;
 @Service
 public class CategoriesDAO {
 
+    private List<Category> categoryList = DataGenerator.getCategoryList();
+
     public void create(Category category) {
 
-        Optional<Category> lastCat = DataGenerator.getCategoryList().stream().sorted(Comparator.comparing(Category::getId)).collect(Collectors.toList()).stream().reduce((a, b) -> b);
+        Optional<Category> lastCat = categoryList.stream().sorted(Comparator.comparing(Category::getId)).collect(Collectors.toList()).stream().reduce((a, b) -> b);
 
         if (lastCat.isPresent()) {
             category.setId(lastCat.get().getId() + 1);
@@ -22,39 +24,37 @@ public class CategoriesDAO {
             category.setId(1);
         }
 
-        DataGenerator.getCategoryList().add(category);
+        categoryList.add(category);
 
     }
 
     public List<Category> readAll() {
-        return DataGenerator.getCategoryList();
+        return categoryList;
     }
 
     public Category readByID(Integer id) {
-        return DataGenerator.getCategoryList().stream().filter(category -> category.getId().equals(id)).findFirst().orElse(null);
+        return categoryList.stream().filter(category -> category.getId().equals(id)).findFirst().orElse(null);
     }
 
     public void update(Category category, Integer id) throws Exception {
 
-        if (readByID(id) == null){
+        if (readByID(id) == null) {
             throw new Exception("No Such Category");
         }
 
-        DataGenerator.getCategoryList().forEach(theCategory -> {
-            if(theCategory.getId().equals(id)){
-                theCategory.setName(category.getName());
-                theCategory.setDescription(category.getDescription());
-            }
-        });
+        Category foundedCategory = readByID(category.getId());
+
+        category.setName(foundedCategory.getName());
+        category.setDescription(foundedCategory.getDescription());
 
     }
 
-    public void delete(Category category){
-        DataGenerator.getCategoryList().remove(category);
+    public void delete(Category category) {
+        categoryList.remove(category);
     }
 
     public void deleteByID(Integer id) {
-        DataGenerator.getCategoryList().removeIf(category -> category.getId().equals(id));
+        categoryList.removeIf(category -> category.getId().equals(id));
     }
 
 }

@@ -1,9 +1,7 @@
 package com.ecommerce.datagenerator;
 
-import com.ecommerce.dao.CategoriesDAO;
 import com.ecommerce.model.Category;
 import com.ecommerce.model.Product;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -17,9 +15,6 @@ public class DataGenerator {
     public static List<Product> productList = new ArrayList<>();
 
     public static List<Category> categories = new ArrayList<>();
-
-    @Autowired
-    public static CategoriesDAO categoriesDAO;
 
     static {
 

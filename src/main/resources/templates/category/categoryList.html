@@ -5,5 +5,34 @@
 <body>
 <div th:replace="/fragments/header :: header"></div>
 <div th:replace="/fragments/footer :: footer" class="bg-dark text-white"></div>
+
+<div class="container">
+    <div class="row">
+
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">Category Id</th>
+                    <th scope="col">Category Name</th>
+                    <th scope="col">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="category : ${categories}">
+                    <th scope="row" th:text="category.id"></th>
+                    <td th:text="category.name"></td>
+                    <td>
+                        <a href="#">More</a>
+                        <a href="#">Delete</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
 </body>
 </html>
